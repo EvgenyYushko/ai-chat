@@ -5,11 +5,6 @@ export const generateContentWithProxy = async (history: Message[]): Promise<stri
     
     const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
     
-    // This check is crucial. The build process will not define the key if it's not set in the environment.
-    if (!API_KEY) {
-        throw new Error("VITE_API_KEY is not configured. Please set the VITE_API_KEY secret in your application's environment variables.");
-    }
-
     const proxyUrl = `https://google-services-kdg8.onrender.com/api/gemini/generate?key=${API_KEY}`;
     
     // The user's proxy expects a single prompt.
