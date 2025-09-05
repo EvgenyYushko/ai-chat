@@ -1,0 +1,5 @@
+{
+  "name": "Gemini Proxy Chat",
+  "description": "A responsive web application that functions as a chat interface, similar to ChatGPT, using a proxy service to communicate with the Gemini API. It maintains chat context throughout the conversation.",
+  "requestFramePermissions": []
+}
