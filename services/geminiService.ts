@@ -2,7 +2,7 @@ import { Message, GeminiProxyRequest, GeminiProxyResponse, Role } from '../types
 
 export const generateContentWithProxy = async (history: Message[]): Promise<string> => {
     // This is the correct, secure way to access environment variables in a Vite project.
-    const API_KEY = import.meta.env.VITE_API_KEY;
+    const API_KEY ='teeest';
 
     // This check is crucial. The build process will not define the key if it's not set in the environment.
     if (!API_KEY) {
