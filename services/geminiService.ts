@@ -1,13 +1,13 @@
 import { Message, GeminiProxyRequest, GeminiProxyResponse, Role } from '../types';
 
 export const generateContentWithProxy = async (history: Message[]): Promise<string> => {
-    // Reverted to the user's external proxy service as requested.
-    const API_KEY = 'AIzaSyDCpnSKTcxoceA_cXw1i7MdwLgOArqowq4';//process.env.API_KEY;
+    // This is the correct, secure way to access environment variables in a Vite project.
+    const API_KEY = import.meta.env.VITE_API_KEY;
 
-    // This check is crucial. The build process replaces the key with a placeholder if it's not set in the environment.
-    // if (!API_KEY || API_KEY === 'UNUSED_PLACEHOLDER_FOR_API_KEY') {
-    //     throw new Error("API_KEY is not configured. Please set the API_KEY secret in your application's environment variables.");
-    // }
+    // This check is crucial. The build process will not define the key if it's not set in the environment.
+    if (!API_KEY) {
+        throw new Error("VITE_API_KEY is not configured. Please set the VITE_API_KEY secret in your application's environment variables.");
+    }
 
     const proxyUrl = `https://google-services-kdg8.onrender.com/api/gemini/generate?key=${API_KEY}`;
     
@@ -17,7 +17,6 @@ export const generateContentWithProxy = async (history: Message[]): Promise<stri
     const conversationHistory = firstUserMessageIndex !== -1 ? history.slice(firstUserMessageIndex) : [];
 
     if (conversationHistory.length === 0) {
-        // This case should not happen in the current app flow, but it's a good safeguard.
         throw new Error("Cannot generate content from an empty or bot-only history.");
     }
 
@@ -25,7 +24,6 @@ export const generateContentWithProxy = async (history: Message[]): Promise<stri
         .map(msg => `${msg.role}: ${msg.text}`)
         .join('\n\n');
 
-    // This is the simple request body format the user's proxy expects.
     const requestBody: GeminiProxyRequest = {
         contents: [{
             parts: [{ text: prompt }]
