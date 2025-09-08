@@ -8,7 +8,7 @@ const App: React.FC = () => {
     const [messages, setMessages] = useState<Message[]>([
         {
             role: Role.MODEL,
-            text: "Hello! I'm your AI assistant. How can I help you today?",
+            text: "Здравствуйте! Я ваш ИИ-помощник. Чем я могу вам помочь?",
         },
     ]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
